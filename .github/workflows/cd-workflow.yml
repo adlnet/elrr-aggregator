@@ -1,0 +1,72 @@
+name: CD
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set up archived Oracle JDK 17.0.3.1
+      uses: oracle-actions/setup-java@v1
+      with:
+        website: oracle.com
+        release: 17
+        version: 17.0.3.1
+    
+    # Entities Repo (must be built before services)
+    - name: Checkout tools repo
+      uses: actions/checkout@v4
+      with:
+        repository: adlnet/elrr-services-entities
+        path: elrrserviceentities
+    - name: Maven build Entities
+      run: |
+       cd elrrserviceentities
+       echo "Maven build Entities"
+       mvn clean install
+    
+    # Services Repo
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        path: elrraggregator
+    - name: Maven build
+      run: |
+       cd elrraggregator
+       echo "Maven build Services"
+       mvn clean install -Dmaven.test.skip=true
+
+    # Build Asset
+    - name: Compress Bundle
+      run: | # Get only the correct jar into the bundle
+        cd elrraggregator/target
+        find . -type f -regex ".*[0-9]\.jar$" -print0 | xargs -0 zip ../../elrr-aggregator.zip
+    - name: Archive Bundle (Tag Pushes)
+      uses: actions/upload-artifact@v4
+      with:
+        name: elrr-aggregator-artifact-${{ github.ref_name }}
+        path: elrr-aggregator.zip
+
+  release:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Download Bundle Artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: elrr-aggregator-artifact-${{ github.ref_name }}
+
+    - name: Craft Draft Release
+      uses: softprops/action-gh-release@v2
+      with:
+        name: Release ${{github.ref_name}}
+        tag_name: ${{github.ref_name}}
+        body: "## Release Notes"
+        draft: true
+        files: elrr-aggregator.zip
