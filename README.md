@@ -54,7 +54,7 @@ Configuration variables for running the application
 | spring.datasource.url (partly, jdbc url)  | PG_DATABASE | - | PostgreSQL Database Name
 | spring.datasource.username  | PG_RW_USER | - | PostgreSQL Username
 | spring.datasource.password  | PG_RW_PASSWORD | - | PostgreSQL Password
-| spring.jpa.properties.hibernate.default_schema  | ELRR_DB_SCHEMA | datasync_schema | Default PostgreSQL Schema
+| spring.jpa.properties.hibernate.default_schema  | ELRR_DB_SCHEMA | services_schema | Default PostgreSQL Schema
 | brokerUrl (partly, combined with port)  | ELRR_AGG_BROKER_HOST | elrr-kafka | Kafka Broker Host
 | brokerUrl (partly, combined with host)  | ELRR_AGG_BROKER_PORT | 9092 | Kafka Broker Port
 | kafka.topic  | ELRR_AGG_BROKER_TOPIC | datasync-statements | Kafka Topic
