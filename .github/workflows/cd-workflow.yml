@@ -22,6 +22,8 @@ jobs:
       with:
         repository: adlnet/elrr-services-entities
         path: elrrserviceentities
+        ####IMPORTANT - THIS IS THE ENTITIES TAG WE WANT TO BUILD WITH
+        ref: v1.0.1
     - name: Maven build Entities
       run: |
        cd elrrserviceentities
