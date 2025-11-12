@@ -23,8 +23,7 @@
 		<sonar.dynamicAnalysis>resuseReports</sonar.dynamicAnalysis>
 		<sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
 		<sonar.language>java</sonar.language>
-		<spring-security.version>6.3.10</spring-security.version>
-		<spring-framework.version>6.2.8</spring-framework.version>
+		<spring-framework.version>6.2.12</spring-framework.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -47,6 +46,18 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 			<scope>provided</scope>
 			<exclusions>
+                <exclusion>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>logback-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.tomcat.embed</groupId>
+                    <artifactId>tomcat-embed-el</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.tomcat.embed</groupId>
+                    <artifactId>tomcat-embed-websocket</artifactId>
+                </exclusion>
 				<exclusion>
 					<groupId>org.springframework.boot</groupId>
 					<artifactId>spring-boot-starter-json</artifactId>
@@ -61,6 +72,16 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>1.5.20</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.5.20</version>
+        </dependency>
 		<dependency>
 			<!--override for spring-security-saml2-service-provider -->
 			<groupId>org.apache.velocity</groupId>
@@ -118,12 +139,7 @@
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-core</artifactId>
-			<version>10.1.42</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.tomcat.embed</groupId>
-			<artifactId>tomcat-embed-websocket</artifactId>
-			<version>10.1.42</version>
+			<version>10.1.48</version>
 		</dependency>
 		<dependency>
 			<groupId>fr.spacefox</groupId>
