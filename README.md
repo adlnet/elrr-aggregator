@@ -12,6 +12,10 @@ There are database and kafka dependencies, but there's a [repo with a docker-com
 - Database Client (can use postgres CLI, pgadmin, or a 3rd party client like [DBeaver](https://dbeaver.io/))
 - [Docker](https://www.docker.com/products/docker-desktop/) if working with containers
 
+
+## Other Projects
+- In order to build Aggregator, you will need to have cloned and installed the [ELRR Entities library](https://github.com/adlnet/elrr-services-entities) (on which this project depends).
+
 ## Running the Application
 
 ### 1. Build the application
